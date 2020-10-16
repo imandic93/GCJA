@@ -44,6 +44,11 @@ class User
      */
     private $email;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $externalApiId;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -81,6 +86,18 @@ class User
     public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getExternalApiId(): ?int
+    {
+        return $this->externalApiId;
+    }
+
+    public function setExternalApiId(int $externalApiId): self
+    {
+        $this->externalApiId = $externalApiId;
 
         return $this;
     }
