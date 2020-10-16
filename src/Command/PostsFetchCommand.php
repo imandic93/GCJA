@@ -4,7 +4,9 @@ namespace App\Command;
 
 use App\Contract\Repository\PostRepositoryInterface;
 use App\Entity\Post;
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\ORMException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -71,26 +73,43 @@ class PostsFetchCommand extends Command
         $savedPostsDict = [];
 
         foreach ($this->postRepository->getAll() as $post) {
-            $savedPostsDict[$post->getExternalApiId()] = $post;
+            $savedPostsDict[$post->getId()] = $post;
         }
+
+        $errors = 0;
 
         foreach ($posts as $post) {
             if (isset($savedPostsDict[$post['id']])) {
                 $postToBeSaved = $savedPostsDict[$post['id']];
             } else {
                 $postToBeSaved = new Post();
-                $postToBeSaved->setExternalApiId($post['id']);
+                $postToBeSaved->setId($post['id']);
             }
 
             $postToBeSaved->setTitle($post['title']);
             $postToBeSaved->setBody($post['body']);
+
+            try {
+                /** @var User $user */
+                $user = $this->entityManager->getReference(User::class, $post['userId']);
+                $postToBeSaved->setOwner($user);
+            } catch (ORMException $e) {
+                $errors++;
+                continue;
+            }
 
             $this->entityManager->persist($postToBeSaved);
         }
 
         $this->entityManager->flush();
 
-        $io->success('Successfully fetched comments');
+        if ($errors > 0) {
+            $io->error("Failed saving ${errors} posts");
+
+            return Command::FAILURE;
+        }
+
+        $io->success('Successfully fetched and saved all comments');
 
         return Command::SUCCESS;
     }

@@ -70,22 +70,22 @@ class UsersFetchCommand extends Command
         $savedUsersDict = [];
 
         foreach ($this->userRepository->getAll() as $user) {
-            $savedUsersDict[$user->getExternalApiId()] = $user;
+            $savedUsersDict[$user->getId()] = $user;
         }
 
         foreach ($users as $user) {
             if (isset($savedUsersDict[$user['id']])) {
-                $newUser = $savedUsersDict[$user['id']];
+                $userToBeSaved = $savedUsersDict[$user['id']];
             } else {
-                $newUser = new User();
-                $newUser->setExternalApiId($user['id']);
+                $userToBeSaved = new User();
+                $userToBeSaved->setId($user['id']);
             }
 
-            $newUser->setName($user['name']);
-            $newUser->setEmail($user['email']);
-            $newUser->setUsername($user['username']);
+            $userToBeSaved->setName($user['name']);
+            $userToBeSaved->setEmail($user['email']);
+            $userToBeSaved->setUsername($user['username']);
 
-            $this->entityManager->persist($newUser);
+            $this->entityManager->persist($userToBeSaved);
         }
         $this->entityManager->flush();
 

@@ -25,7 +25,7 @@ class User
 {
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue
+     * @ORM\GeneratedValue(strategy="NONE")
      * @ORM\Column(type="integer")
      * @Groups({"users:read"})
      * @var int
@@ -54,12 +54,6 @@ class User
     private $email;
 
     /**
-     * @ORM\Column(type="integer")
-     * @var int
-     */
-    private $externalApiId;
-
-    /**
      * @ORM\OneToMany(targetEntity=Post::class, mappedBy="owner")
      */
     private $posts;
@@ -72,6 +66,13 @@ class User
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getName(): ?string
@@ -106,18 +107,6 @@ class User
     public function setEmail(string $email): self
     {
         $this->email = $email;
-
-        return $this;
-    }
-
-    public function getExternalApiId(): ?int
-    {
-        return $this->externalApiId;
-    }
-
-    public function setExternalApiId(int $externalApiId): self
-    {
-        $this->externalApiId = $externalApiId;
 
         return $this;
     }

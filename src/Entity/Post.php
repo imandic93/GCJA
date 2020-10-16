@@ -22,7 +22,7 @@ class Post
 {
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue
+     * @ORM\GeneratedValue(strategy="NONE")
      * @ORM\Column(type="integer")
      * @Groups({"posts:read"})
      * @var int
@@ -44,12 +44,6 @@ class Post
     private $body;
 
     /**
-     * @ORM\Column(type="integer")
-     * @var int
-     */
-    private $externalApiId;
-
-    /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="posts")
      * @ORM\JoinColumn(nullable=false)
      * @var User
@@ -59,6 +53,13 @@ class Post
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getTitle(): ?string
@@ -81,18 +82,6 @@ class Post
     public function setBody(string $body): self
     {
         $this->body = $body;
-
-        return $this;
-    }
-
-    public function getExternalApiId(): ?int
-    {
-        return $this->externalApiId;
-    }
-
-    public function setExternalApiId(int $externalApiId): self
-    {
-        $this->externalApiId = $externalApiId;
 
         return $this;
     }
