@@ -45,7 +45,7 @@ class UsersFetchCommand extends Command
         $this->externalApiBaseUrl = $externalApiBaseUrl;
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this->setDescription("Fetching users from external API located at {$this->externalApiBaseUrl}");
     }

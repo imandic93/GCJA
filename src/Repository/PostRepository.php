@@ -20,6 +20,9 @@ class PostRepository extends ServiceEntityRepository implements PostRepositoryIn
         parent::__construct($registry, Post::class);
     }
 
+    /**
+     * @return Post[]
+     */
     public function getAll(): array
     {
         return $this->createQueryBuilder('p')

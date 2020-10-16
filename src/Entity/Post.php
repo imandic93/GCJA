@@ -25,23 +25,27 @@ class Post
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * @Groups({"posts:read"})
+     * @var int
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"posts:read"})
+     * @var string
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
      * @Groups({"posts:read"})
+     * @var string
      */
     private $body;
 
     /**
      * @ORM\Column(type="integer")
+     * @var int
      */
     private $externalApiId;
 

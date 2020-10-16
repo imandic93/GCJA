@@ -20,6 +20,9 @@ class UserRepository extends ServiceEntityRepository implements UserRepositoryIn
         parent::__construct($registry, User::class);
     }
 
+    /**
+     * @return User[]
+     */
     public function getAll(): array
     {
         return $this->createQueryBuilder('u')

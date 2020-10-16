@@ -46,7 +46,7 @@ class PostsFetchCommand extends Command
         $this->postRepository = $postRepository;
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this->setDescription("Fetching posts from external API located at {$this->externalApiBaseUrl}");
     }

@@ -26,29 +26,34 @@ class User
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * @Groups({"users:read"})
+     * @var int
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"users:read"})
+     * @var string
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"users:read"})
+     * @var string
      */
     private $username;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"users:read"})
+     * @var string
      */
     private $email;
 
     /**
      * @ORM\Column(type="integer")
+     * @var int
      */
     private $externalApiId;
 
