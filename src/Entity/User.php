@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 
 /**
  * @ApiResource(
@@ -13,6 +15,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     itemOperations={"GET"},
  *     normalizationContext={"groups"="users:read", "swagger_definition_name"="read"}
  * )
+ * @ApiFilter(OrderFilter::class, properties={"name", "username", "email"})
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\Table(name="`user`")
  */
