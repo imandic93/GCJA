@@ -46,6 +46,7 @@ class Post
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="posts")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"posts:read"})
      * @var User
      */
     private $owner;
