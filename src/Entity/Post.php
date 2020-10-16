@@ -49,6 +49,13 @@ class Post
      */
     private $externalApiId;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="posts")
+     * @ORM\JoinColumn(nullable=false)
+     * @var User
+     */
+    private $owner;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -86,6 +93,18 @@ class Post
     public function setExternalApiId(int $externalApiId): self
     {
         $this->externalApiId = $externalApiId;
+
+        return $this;
+    }
+
+    public function getOwner(): ?User
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(User $owner): self
+    {
+        $this->owner = $owner;
 
         return $this;
     }

@@ -5,6 +5,8 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
@@ -57,6 +59,16 @@ class User
      */
     private $externalApiId;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Post::class, mappedBy="owner")
+     */
+    private $posts;
+
+    public function __construct()
+    {
+        $this->posts = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -108,5 +120,13 @@ class User
         $this->externalApiId = $externalApiId;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|Post[]
+     */
+    public function getPosts(): Collection
+    {
+        return $this->posts;
     }
 }
