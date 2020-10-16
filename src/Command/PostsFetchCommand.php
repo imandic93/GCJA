@@ -70,7 +70,6 @@ class PostsFetchCommand extends Command
 
         $savedPostsDict = [];
 
-        /** @var Post $post */
         foreach ($this->postRepository->getAll() as $post) {
             $savedPostsDict[$post->getExternalApiId()] = $post;
         }

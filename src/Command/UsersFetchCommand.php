@@ -69,7 +69,6 @@ class UsersFetchCommand extends Command
 
         $savedUsersDict = [];
 
-        /** @var User $user */
         foreach ($this->userRepository->getAll() as $user) {
             $savedUsersDict[$user->getExternalApiId()] = $user;
         }
